@@ -73,13 +73,13 @@ function Send-Mail {
   try {
     $Request.ForEach({
       $Mail = (New-Object System.Net.Mail.MailMessage)
-      $Mail.Subject = ((Get-Content -LiteralPath "${_}" | Select-String '^(Subject: (.*))').Matches.Groups[2].Value)
+      $Mail.Subject = ((Get-Content -LiteralPath "${_}" | Select-String '^(Subject: (.*))').Matches[0].Groups[2].Value)
       $Mail.Body = (Get-Content -LiteralPath "${_}" | Select-Object -Skip 2)
       $Mail.BodyEncoding= [System.Text.Encoding]::UTF8
       $Mail.From = $From
       $Mail.Priority = $Priority
       $Mail.IsBodyHtml = $HTML
-      $To = (((Get-Content -LiteralPath "${_}" | Select-String '^(To: (.*))').Matches.Groups[2].Value) -split ',')
+      $To = (((Get-Content -LiteralPath "${_}" | Select-String '^(To: (.*))').Matches[0].Groups[2].Value) -split ',')
       $To.ForEach({ $Mail.To.Add(-join($_, '@', $Domain)) })
       $Cc.ForEach({ $Mail.CC.Add($_) })
       $Bcc.ForEach({ $Mail.BCC.Add($_) })
