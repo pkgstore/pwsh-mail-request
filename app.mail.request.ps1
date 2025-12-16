@@ -35,10 +35,10 @@ Sends an email notification using SMTP.
 
 param(
   [Parameter(Mandatory)][string]$Domain,
+  [Parameter(Mandatory)][SupportsWildcards()][string[]]$Request,
   [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$')][Parameter(Mandatory)][string]$From,
   [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$')][string[]]$Cc,
   [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$')][string[]]$Bcc,
-  [SupportsWildcards()][string[]]$Request,
   [ValidateSet('Low', 'Normal', 'High')][string]$Priority = 'Normal',
   [string]$LogPath = "${PSScriptRoot}\log.mail.request.txt",
   [string]$LogSize = '50MB',
