@@ -51,8 +51,9 @@ param(
 
 $Cfg = ((Get-Item "${PSCommandPath}").Basename + '.ini')
 $P = (Get-Content "${PSScriptRoot}\${Cfg}" | ConvertFrom-StringData)
-$Request = (Resolve-Path "${Request}" | Select-Object -ExpandProperty 'Path'); if ($null -eq $Request ) { exit }
 $TS = (Get-Date -UFormat '%F.%H-%M-%S')
+$Request = (Resolve-Path "${Request}" | Select-Object -ExpandProperty 'Path')
+if ($null -eq $Request ) { Write-Host 'Request not found!'; exit }
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
