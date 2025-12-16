@@ -65,7 +65,7 @@ function Remove-Request([string]$Path) {
 
 function Compress-Log([string]$Path, [string]$Size) {
   if ((Get-Item $Path).Length -gt $Size) {
-    Compress-Archive "${Path}" -DestinationPath "${Path}.${TS}.zip" && Remove-Item "${Path}"
+    Compress-Archive -LiteralPath "${Path}" -DestinationPath "${Path}.${TS}.zip" && Remove-Item -LiteralPath "${Path}"
   }
 }
 
@@ -73,20 +73,20 @@ function Send-Mail {
   try {
     $Request.ForEach({
       $Mail = (New-Object System.Net.Mail.MailMessage)
-      $Mail.Subject = ((Get-Content "${_}" | Select-String '^(Subject: (.*))').Matches.Groups[2].Value)
-      $Mail.Body = (Get-Content "${_}" | Select-Object -Skip 2)
+      $Mail.Subject = ((Get-Content -LiteralPath "${_}" | Select-String '^(Subject: (.*))').Matches.Groups[2].Value)
+      $Mail.Body = (Get-Content -LiteralPath "${_}" | Select-Object -Skip 2)
       $Mail.BodyEncoding= [System.Text.Encoding]::UTF8
       $Mail.From = $From
       $Mail.Priority = $Priority
       $Mail.IsBodyHtml = $HTML
-      $To = (((Get-Content "${_}" | Select-String '^(To: (.*))').Matches.Groups[2].Value) -split ',')
+      $To = (((Get-Content -LiteralPath "${_}" | Select-String '^(To: (.*))').Matches.Groups[2].Value) -split ',')
       $To.ForEach({ $Mail.To.Add(-join($_, '@', $Domain)) })
       $Cc.ForEach({ $Mail.CC.Add($_) })
       $Bcc.ForEach({ $Mail.BCC.Add($_) })
       if ($Attach) { $Mail.Attachments.Add((New-Object System.Net.Mail.Attachment($_))) }
       if ($BypassCertValid) { [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true } }
 
-      $RequestName = (Split-Path "${_}" -LeafBase)
+      $RequestName = (Split-Path -Path "${_}" -LeafBase)
       $MailName = ($Mail.To | Join-String -Separator ', ')
 
       $SmtpClient = (New-Object Net.Mail.SmtpClient($P.Server, $P.Port))
@@ -103,6 +103,6 @@ function Send-Mail {
 }
 
 function Start-Script() {
-  Start-Transcript "${LogPath}" -Append; Send-Mail; Stop-Transcript
+  Start-Transcript -LiteralPath "${LogPath}" -Append; Send-Mail; Stop-Transcript
   Compress-Log "${LogPath}" -Size "${LogSize}"
 }; Start-Script
