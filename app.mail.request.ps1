@@ -5,7 +5,7 @@
 .AUTHOREMAIL  mail@kaikim.ru
 .TAGS         windows server mail
 .LICENSEURI   https://choosealicense.com/licenses/mit/
-.PROJECTURI
+.PROJECTURI   https://libsys.ru/ru/2025/12/91f3c9a4-e6a8-5403-b42b-7004f234bff2/
 #>
 
 #Requires -Version 7.2
@@ -26,7 +26,7 @@ Sends an email notification using SMTP.
 .\app.mail.request.ps1 -Domain 'example.org' -From 'request@example.com' -Request 'C:\Request\*.txt' -Bcc 'mail@example.net', 'mail@example.biz'
 
 .LINK
-
+https://libsys.ru/ru/2025/12/91f3c9a4-e6a8-5403-b42b-7004f234bff2/
 #>
 
 # -------------------------------------------------------------------------------------------------------------------- #
