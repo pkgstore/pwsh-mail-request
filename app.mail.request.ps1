@@ -12,7 +12,7 @@
 
 <#
 .SYNOPSIS
-Sends an email notification using SMTP.
+Sending emails with requests using SMTP.
 
 .DESCRIPTION
 
