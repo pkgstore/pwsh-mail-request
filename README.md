@@ -3,7 +3,7 @@
 ## Install
 
 ```powershell
-$APP = "mail-request"; $ORG = "pkgstore"; $PFX = "pwsh-"; $URI = "https://raw.githubusercontent.com/${ORG}/${PFX}${APP}/refs/heads/main"; $META = Invoke-RestMethod -Uri "${URI}/meta.json"; $META.install.file.ForEach({ if (-not (Test-Path "$($_.path)")) { New-Item -Path "$($_.path)" -ItemType "Directory" | Out-Null }; Invoke-WebRequest "${URI}/$($_.name)" -OutFile "$($_.path)" })
+$APP = "mail-request"; $ORG = "pkgstore"; $PFX = "pwsh-"; $URI = "https://raw.githubusercontent.com/${ORG}/${PFX}${APP}/refs/heads/main"; $TS = (Get-Date -UFormat "%s"); $META = Invoke-RestMethod -Uri "${URI}/meta.json"; $META.install.file.ForEach({ if (-not (Test-Path -LiteralPath "$($_.path)")) { New-Item -Path "$($_.path)" -ItemType "Directory" | Out-Null }; if (Test-Path -LiteralPath "$($_.path)\$($_.name)") { Compress-Archive -LiteralPath "$($_.path)\$($_.name)" -DestinationPath "$($_.path)\$($_.name).${TS}.zip" }; Invoke-WebRequest "${URI}/$($_.name)" -OutFile "$($_.path)" })
 ```
 
 ## Resources

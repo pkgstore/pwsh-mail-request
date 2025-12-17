@@ -8,7 +8,7 @@
 .PROJECTURI   https://libsys.ru/ru/2025/12/91f3c9a4-e6a8-5403-b42b-7004f234bff2/
 #>
 
-#Requires -Version 7.2
+#Requires -Version 7.4
 
 <#
 .SYNOPSIS
