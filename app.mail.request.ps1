@@ -34,7 +34,6 @@ https://libsys.ru/ru/2025/12/91f3c9a4-e6a8-5403-b42b-7004f234bff2/
 # -------------------------------------------------------------------------------------------------------------------- #
 
 param(
-  [Parameter(Mandatory)][string]$Domain,
   [Parameter(Mandatory)][SupportsWildcards()][string[]]$Request,
   [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$')][Parameter(Mandatory)][string]$From,
   [ValidatePattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,}$')][string[]]$Cc,
@@ -80,7 +79,7 @@ function Send-Mail {
       $Mail.Priority = $Priority
       $Mail.IsBodyHtml = $HTML
       $To = (((Get-Content -LiteralPath "${_}" | Select-String '^(To: (.*))').Matches[0].Groups[2].Value) -split ',')
-      $To.ForEach({ $Mail.To.Add(-join($_, '@', $Domain)) })
+      $To.ForEach({ $Mail.To.Add($_) })
       $Cc.ForEach({ $Mail.CC.Add($_) })
       $Bcc.ForEach({ $Mail.BCC.Add($_) })
       if ($Attach) { $Mail.Attachments.Add((New-Object System.Net.Mail.Attachment($_))) }
