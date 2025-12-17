@@ -38,7 +38,7 @@
   <Actions Context="Author">
     <Exec>
       <Command>pwsh.exe</Command>
-      <Arguments>-NoProfile -WindowStyle "Hidden" -ExecutionPolicy "Bypass" -File "C:\Apps\MailRequest\app.mail.request.ps1" -Domain "example.org" -From "request@example.com" -Request "C:\Request\*.txt"</Arguments>
+      <Arguments>-NoProfile -WindowStyle "Hidden" -ExecutionPolicy "Bypass" -File "C:\Apps\MailRequest\app.mail.request.ps1" -From "request@example.com" -Request "C:\Request\*.txt"</Arguments>
     </Exec>
   </Actions>
 </Task>
