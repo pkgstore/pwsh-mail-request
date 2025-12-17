@@ -1,18 +1,20 @@
 {
   "name": "MailRequest",
   "description": "",
-  "file": [
-    {
-      "name": "app.mail.request.ini",
-      "path": "C:\\Apps\\MailRequest"
-    },
-    {
-      "name": "app.mail.request.ps1",
-      "path": "C:\\Apps\\MailRequest"
-    },
-    {
-      "name": "task.mail.request.xml",
-      "path": "C:\\Apps\\MailRequest"
-    }
-  ]
+  "install": {
+    "file": [
+      {
+        "name": "app.mail.request.ini",
+        "path": "C:\\Apps\\MailRequest"
+      },
+      {
+        "name": "app.mail.request.ps1",
+        "path": "C:\\Apps\\MailRequest"
+      },
+      {
+        "name": "task.mail.request.xml",
+        "path": "C:\\Apps\\MailRequest"
+      }
+    ]
+  }
 }
