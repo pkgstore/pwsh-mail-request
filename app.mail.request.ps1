@@ -104,5 +104,5 @@ function Send-Mail {
 
 function Start-Script() {
   Start-Transcript -LiteralPath "${LogPath}" -Append; Send-Mail; Stop-Transcript
-  Compress-Log "${LogPath}" -Size "${LogSize}"
+  Compress-Log -Path "${LogPath}" -Size "${LogSize}"
 }; Start-Script
