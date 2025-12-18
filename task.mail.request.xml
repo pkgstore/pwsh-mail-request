@@ -9,6 +9,7 @@
         <Interval>PT5M</Interval>
         <StopAtDurationEnd>false</StopAtDurationEnd>
       </Repetition>
+      <StartBoundary>2025-01-01T01:01:01</StartBoundary>
       <Enabled>true</Enabled>
     </TimeTrigger>
   </Triggers>
