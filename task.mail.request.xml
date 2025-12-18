@@ -38,7 +38,7 @@
   </Settings>
   <Actions Context="Author">
     <Exec>
-      <Command>pwsh.exe</Command>
+      <Command>"C:\Program Files\PowerShell\7\pwsh.exe"</Command>
       <Arguments>-NoProfile -WindowStyle "Hidden" -ExecutionPolicy "Bypass" -File "C:\Apps\MailRequest\app.mail.request.ps1" -From "request@example.com" -Request "C:\Request\*.txt"</Arguments>
     </Exec>
   </Actions>
