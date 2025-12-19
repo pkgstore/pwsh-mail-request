@@ -1,6 +1,6 @@
 {
   "name": "MailRequest",
-  "description": "",
+  "description": "Sending emails with requests using SMTP.",
   "install": {
     "file": [
       {
