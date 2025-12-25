@@ -1,5 +1,5 @@
 <#PSScriptInfo
-.VERSION      0.1.0
+.VERSION      0.2.0
 .GUID         07371aa0-dc86-417d-8981-517226c40c6c
 .AUTHOR       Kai Kimera
 .AUTHOREMAIL  mail@kaikim.ru
