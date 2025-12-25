@@ -50,7 +50,9 @@ param(
 
 $Cfg = ((Get-Item "${PSCommandPath}").Basename + '.ini')
 $P = (Get-Content "${PSScriptRoot}\${Cfg}" | ConvertFrom-StringData)
+$N = [Environment]::NewLine
 $TS = (Get-Date -UFormat '%F.%H-%M-%S')
+$Date = (Get-Date -Format 'yyyy-MM-ddTHH:mm:ssK')
 $Request = (Resolve-Path "${Request}" | Select-Object -ExpandProperty 'Path')
 if ($null -eq $Request ) { Write-Host 'Request not found!'; exit }
 
@@ -68,12 +70,32 @@ function Compress-Log([string]$Path, [string]$Size) {
   }
 }
 
+function Write-Sep {
+  $Sep = switch ( $true ) {
+    $HTML   { -join ('<br><br>', '<hr style="border:none;border-top:1px solid #cccccc;width:100%;">') }
+    default { -join ("${N}${N}-- ", "${N}") }
+  }
+
+  return $Sep
+}
+
+function Write-Sign([string]$Sign) {
+  $Sign = switch ( $true ) {
+    $HTML   { -join ('<ul>', "<li><code>#Request:${Sign}</code></li>", "<li><code>#Date:${Date}</code></li>", '</ul>') }
+    default { -join ("#Request:${Sign}${N}", "#Date:${Date}") }
+  }
+
+  return $Sign.ToUpper()
+}
+
 function Send-Mail {
   try {
     $Request.ForEach({
+      $RequestName = (Split-Path -Path "${_}" -LeafBase)
+      $RequestBody = ((Get-Content -LiteralPath "${_}" | Select-Object -Skip 2) | Out-String)
       $Mail = (New-Object System.Net.Mail.MailMessage)
       $Mail.Subject = ((Get-Content -LiteralPath "${_}" | Select-String '^(Subject: (.*))').Matches[0].Groups[2].Value)
-      $Mail.Body = (Get-Content -LiteralPath "${_}" | Select-Object -Skip 2)
+      $Mail.Body = (-join ($RequestBody, $(Write-Sep), $(Write-Sign "${RequestName}")))
       $Mail.BodyEncoding= [System.Text.Encoding]::UTF8
       $Mail.From = $From
       $Mail.Priority = $Priority
@@ -85,9 +107,7 @@ function Send-Mail {
       if ($Attach) { $Mail.Attachments.Add((New-Object System.Net.Mail.Attachment($_))) }
       if ($BypassCertValid) { [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $true } }
 
-      $RequestName = (Split-Path -Path "${_}" -LeafBase)
       $MailName = ($Mail.To | Join-String -Separator ', ')
-
       $SmtpClient = (New-Object Net.Mail.SmtpClient($P.Server, $P.Port))
       $SmtpClient.EnableSsl = $SSL
       $SmtpClient.Credentials = (New-Object System.Net.NetworkCredential($P.User, $P.Password))
