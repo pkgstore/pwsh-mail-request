@@ -3,7 +3,7 @@
 ## Install
 
 ```powershell
-$Ver = 'v0.0.0'; $App = 'mail-request'; Invoke-Command -ScriptBlock $([scriptblock]::Create((Invoke-WebRequest -Uri 'https://pkgstore.ru/pwsh.install.txt').Content)) -ArgumentList ($args + @($App,$Ver))
+$Ver = 'v0.0.0'; $App = 'mail-request'; Invoke-Command -ScriptBlock $([scriptblock]::Create((Invoke-WebRequest -Uri 'https://pkgstore.ru/pwsh.install.txt').Content)) -ArgumentList ($args + @($App, $Ver))
 ```
 
 ## Resources
