@@ -1,0 +1,10 @@
+name: 'MailRequest'
+description: 'Sending emails with requests using SMTP.'
+install:
+  files:
+    - name: 'app.mail.request.ini'
+      path: 'C:\Apps\MailRequest'
+    - name: 'app.mail.request.ps1'
+      path: 'C:\Apps\MailRequest'
+    - name: 'job.mail.request.xml'
+      path: 'C:\Apps\MailRequest'
